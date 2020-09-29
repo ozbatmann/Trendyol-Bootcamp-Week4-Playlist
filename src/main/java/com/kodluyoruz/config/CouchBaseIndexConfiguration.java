@@ -12,22 +12,22 @@ import java.util.Collections;
 @Configuration
 public class CouchBaseIndexConfiguration {
 
-    private final Cluster couchbaseCluster;
-    private final CouchBaseProperties couchbaseProperties;
+	private final Cluster couchbaseCluster;
+	private final CouchBaseProperties couchbaseProperties;
 
-    public CouchBaseIndexConfiguration(Cluster couchbaseCluster, CouchBaseProperties couchbaseProperties) {
-        this.couchbaseCluster = couchbaseCluster;
-        this.couchbaseProperties = couchbaseProperties;
-    }
+	public CouchBaseIndexConfiguration(Cluster couchbaseCluster, CouchBaseProperties couchbaseProperties) {
+		this.couchbaseCluster = couchbaseCluster;
+		this.couchbaseProperties = couchbaseProperties;
+	}
 
-    @Bean
-    public void createIndexes() {
-        QueryIndexManager indexManager = couchbaseCluster.queryIndexes();
+	@Bean
+	public void createIndexes() {
+		QueryIndexManager indexManager = couchbaseCluster.queryIndexes();
 
-            indexManager.createPrimaryIndex(couchbaseProperties.getBucketName(),
-                    CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions().ignoreIfExists(true));
-            indexManager.createIndex(couchbaseProperties.getBucketName(), "user_idx", Collections.singletonList("userId"),
-                    CreateQueryIndexOptions.createQueryIndexOptions().ignoreIfExists(true));
-        }
+		indexManager.createPrimaryIndex(couchbaseProperties.getBucketName(),
+				CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions().ignoreIfExists(true));
+		indexManager.createIndex(couchbaseProperties.getBucketName(), "user_idx",
+				Collections.singletonList("userId"), CreateQueryIndexOptions.createQueryIndexOptions().ignoreIfExists(true));
+	}
 
 }
