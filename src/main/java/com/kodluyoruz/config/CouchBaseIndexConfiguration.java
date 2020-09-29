@@ -24,12 +24,10 @@ public class CouchBaseIndexConfiguration {
     public void createIndexes() {
         QueryIndexManager indexManager = couchbaseCluster.queryIndexes();
 
-        if(indexManager.getAllIndexes(couchbaseProperties.getBucketName()).isEmpty()){
             indexManager.createPrimaryIndex(couchbaseProperties.getBucketName(),
-                    CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions());
+                    CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions().ignoreIfExists(true));
             indexManager.createIndex(couchbaseProperties.getBucketName(), "user_idx", Collections.singletonList("userId"),
-                    CreateQueryIndexOptions.createQueryIndexOptions());
+                    CreateQueryIndexOptions.createQueryIndexOptions().ignoreIfExists(true));
         }
 
-    }
 }
