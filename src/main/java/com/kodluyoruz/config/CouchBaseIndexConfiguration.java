@@ -25,9 +25,9 @@ public class CouchBaseIndexConfiguration {
 		QueryIndexManager indexManager = couchbaseCluster.queryIndexes();
 
 		indexManager.createPrimaryIndex(couchbaseProperties.getBucketName(),
-				CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions().ignoreIfExists(true));
+				CreatePrimaryQueryIndexOptions.createPrimaryQueryIndexOptions().ignoreIfExists(Boolean.TRUE));
 		indexManager.createIndex(couchbaseProperties.getBucketName(), "user_idx",
-				Collections.singletonList("userId"), CreateQueryIndexOptions.createQueryIndexOptions().ignoreIfExists(true));
+				Collections.singletonList("userId"), CreateQueryIndexOptions.createQueryIndexOptions().ignoreIfExists(Boolean.TRUE));
 	}
 
 }
